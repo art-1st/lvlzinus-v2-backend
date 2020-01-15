@@ -1,18 +1,41 @@
-import * as Koa from 'koa';
-import { Server } from 'http';
+import Koa from 'koa'
+import { ApolloServer, gql } from 'apollo-server-koa'
+import { Server as HTTPServer } from 'http'
 
-class AppServer {
+// Construct a schema, using GraphQL schema language
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!',
+  },
+};
+
+class Server {
   app: Koa
 
-  constructor(app: Koa) {
-    this.app = app
+  constructor() {
+    this.app = new Koa()
+    this.middleware()
   }
 
-  listen(port: number): Server {
-    const server = this.app.listen(port);
+  middleware() {
+    const apollo = new ApolloServer({ typeDefs, resolvers })
+    apollo.applyMiddleware({
+      app: this.app
+    })
+  }
+
+  listen(port: number): HTTPServer {
+    const server = this.app.listen(port)
     
     return server
   }
 }
 
-export default AppServer;
+export default Server

@@ -1,4 +1,4 @@
-import AppServer from './server';
+import Server from './server';
 
-const server = new AppServer();
+const server = new Server();
 server.listen(4000)
