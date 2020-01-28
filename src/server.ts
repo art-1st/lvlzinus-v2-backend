@@ -1,6 +1,19 @@
-import Koa from 'koa'
-import { ApolloServer, gql } from 'apollo-server-koa'
-import { Server as HTTPServer } from 'http'
+import Koa from 'koa';
+import { ApolloServer, gql } from 'apollo-server-koa';
+import { Server as HTTPServer } from 'http';
+import db from './database';
+import * as dbTables from './database/models/db.tables';
+
+const testConnection = async () => {
+  try {
+    await db.authenticate();
+    console.log('connection successfully!');
+  } catch {
+    console.log('connection failed..');
+  }
+};
+
+testConnection();
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
