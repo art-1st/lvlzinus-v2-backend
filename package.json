@@ -8,7 +8,7 @@
     "offline": "serverless offline --port 5000"
   },
   "dependencies": {
-    "apollo-server-koa": "^2.9.16",
+    "apollo-server-koa": "^2.14.2",
     "graphql": "^14.5.8",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
